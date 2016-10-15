@@ -203,7 +203,7 @@ public class SweetAlertDialog extends Dialog implements View.OnClickListener {
             switch (mAlertType) {
                 case ERROR_TYPE:
                     mErrorFrame.setVisibility(View.VISIBLE);
-                    mSpacingView.setVisibility(View.GONE);
+                    mSpacingView.setVisibility(View.VISIBLE);
                     break;
                 case SUCCESS_TYPE:
                     mSuccessFrame.setVisibility(View.VISIBLE);

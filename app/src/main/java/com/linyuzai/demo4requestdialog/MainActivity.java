@@ -10,16 +10,21 @@ import com.linyuzai.requestdialog.RequestDialog;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    Button button;
+    Button mSuccessButton;
+    Button mFailureButton;
     RequestDialog dialog;
+
+    boolean isSuccess;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        button = (Button) findViewById(R.id.button);
-        button.setOnClickListener(this);
+        mSuccessButton = (Button) findViewById(R.id.success_button);
+        mFailureButton = (Button) findViewById(R.id.failure_button);
+        mSuccessButton.setOnClickListener(this);
+        mFailureButton.setOnClickListener(this);
 
         dialog = new RequestDialog(this)
                 .setTitle("title")
@@ -38,7 +43,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         new Handler().postDelayed(new Runnable() {
                             @Override
                             public void run() {
-                                dialog.successDialog();
+                                if (isSuccess)
+                                    dialog.successDialog();
+                                else
+                                    dialog.failureDialog();
+                                isSuccess = true;
                             }
                         }, 2000);
                     }
@@ -52,6 +61,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.success_button:
+                isSuccess = true;
+                break;
+            case R.id.failure_button:
+                isSuccess = false;
+                break;
+        }
         dialog.warningDialog(0);
     }
 }
